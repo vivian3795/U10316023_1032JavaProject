@@ -56,4 +56,63 @@ class last extends JPanel{
 		add(now,BorderLayout.NORTH);
 		add(date,BorderLayout.CENTER);
 		add(setting,BorderLayout.SOUTH);
+	}
+	
+	int FirstDay(){
+		int theyear = Integer.parseInt(YEAR.getText()) ;
+		int themonth = Integer.parseInt(MONTH.getSelectedItem().toString());
+			
+		int m = (int)(3.4+(themonth-3)%12*2.6);
+		int M = m%7;
+		if (themonth == 1 || themonth == 2)
+				M = M-1;
+		
+		int C = 2*(3-(theyear/100)%4);
+		
+		int y = (theyear % 100)%28;
+		int Y = (y+y/4)%7;
+		
+		//leap year
+		int febDay = feb();
+		if (febDay == 29)
+			Y = Y-1;
+				
+		int first = (C+Y+M+1) % 7;
+		return  first;
+	}
+	
+	int Days(){
+		int days = 0;
+		int m = Integer.parseInt(MONTH.getSelectedItem().toString());
+		switch(m){
+			case 1: days = 31;break;
+			case 2: days = feb();break;
+			case 3: days = 31;break;
+			case 4: days = 30;break;
+			case 5: days = 31;break;
+			case 6: days = 30;break;
+			case 7: days = 31;break;
+			case 8: days = 31;break;
+			case 9: days = 30;break;
+			case 10: days = 31;break;
+			case 11: days = 30;break;
+			case 12: days = 31;
+		}
+		return days;
+	}
+	
+	int feb(){
+		int y = Integer.parseInt(YEAR.getText());
+		int febDay = 28;
+		if(y%4 == 0){
+			febDay = 29;
+			if(y%100 ==0)
+				febDay = 28;
+				if(y%400 == 0)
+					febDay = 29;
+						if(y%4000 ==0)
+							febDay = 28;
+		}
+		return febDay;
+	}
 }
