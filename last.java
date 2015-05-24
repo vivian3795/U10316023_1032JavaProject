@@ -56,13 +56,44 @@ class last extends JPanel{
 		add(now,BorderLayout.NORTH);
 		add(date,BorderLayout.CENTER);
 		add(setting,BorderLayout.SOUTH);
+		
+		RESET.addActionListener(new ActionListener(){
+			@Override//when press reset, it would find the month you need.
+			public void actionPerformed(ActionEvent e){
+				date.removeAll();
+				date.add(new JLabel("   SUN  "));
+				date.add(new JLabel("   MON "));
+				date.add(new JLabel("    TUE  "));
+				date.add(new JLabel("   WED "));
+				date.add(new JLabel("    THU  "));
+				date.add(new JLabel("    FRI   "));
+				date.add(new JLabel("   SAT   "));
+				int F = FirstDay();
+				int D = Days();
+				int day = 1;
+				for(int i = 0; i<42 ;i++){
+					if(i < F)
+						date.add(new JLabel("           "));
+					else if ( i >= (F+D))
+						date.add(new JLabel("           "));
+					else{
+						date.add(new JLabel("     "+day+"    "));
+						day++;
+					}
+				}
+				date.revalidate();
+				nowyear.setText(YEAR.getText() + "   ");
+				int themonth = Integer.parseInt(MONTH.getSelectedItem().toString());
+				nowmonth.setText("   " +month[themonth-1] + " ");
+			}
+		});
 	}
 	
 	int FirstDay(){
 		int theyear = Integer.parseInt(YEAR.getText()) ;
 		int themonth = Integer.parseInt(MONTH.getSelectedItem().toString());
 			
-		int m = (int)(3.4+(themonth-3)%12*2.6);
+		int m = (int)(3.4+(9+themonth)%12*2.6);
 		int M = m%7;
 		if (themonth == 1 || themonth == 2)
 				M = M-1;
