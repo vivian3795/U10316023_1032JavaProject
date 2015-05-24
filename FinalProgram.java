@@ -4,7 +4,7 @@
  * Information:
  *      main class
  */
- 
+import javax.swing.*;
 public class FinalProgram extends JFrame{
   //create an object
 	last L = new last();
