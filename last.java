@@ -11,22 +11,25 @@ import java.awt.*;
 import javax.swing.border.*;
 
 class last extends JPanel{
+	//12 months and its name
+	String[] month = {"Jan","Feb","Mar","Apr","May",
+		"Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+	String[] num = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+	
+	//the components it needs
 	JPanel now = new JPanel();
 	JPanel setting = new JPanel();
 	JPanel weekday = new JPanel();
 	JPanel week = new JPanel();
 	JPanel date = new JPanel();
-	String[] month = {"Jan","Feb","Mar","Apr","May",
-		"Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-	String[] num = {"1","2","3","4","5","6","7","8","9","10","11","12"};
 	JLabel nowyear = new JLabel("set ");
-	JLabel nowmonth = new JLabel("time");
+	JLabel nowmonth = new JLabel("time ");
 	JTextField YEAR = new JTextField();
 	JComboBox MONTH = new JComboBox(num);
 	JButton RESET = new JButton("set");
 	
-	
-	last(){
+	//constructor
+	last(){//Typesetting
 		setting.setLayout(new GridLayout(1,5));
 		setting.add(new JLabel("year:"));
 		setting.add(YEAR);
@@ -42,6 +45,7 @@ class last extends JPanel{
 		now.add(nowmonth);
 		
 		date.setLayout(new GridLayout(7,7));
+		//a week (to align, plus blank)
 		date.add(new JLabel("   SUN  "));
 		date.add(new JLabel("   MON "));
 		date.add(new JLabel("    TUE  "));
@@ -49,6 +53,7 @@ class last extends JPanel{
 		date.add(new JLabel("    THU  "));
 		date.add(new JLabel("    FRI   "));
 		date.add(new JLabel("   SAT   "));
+		//blank monthly calendar 
 		for(int i = 0; i <42 ;i++){
 			date.add(new JLabel("           "));
 		}		
@@ -57,10 +62,12 @@ class last extends JPanel{
 		add(date,BorderLayout.CENTER);
 		add(setting,BorderLayout.SOUTH);
 		
+		//add listener
 		RESET.addActionListener(new ActionListener(){
 			@Override//when press reset, it would find the month you need.
 			public void actionPerformed(ActionEvent e){
-				date.removeAll();
+				date.removeAll();//clear previous one
+				//a week (to align, plus blank)
 				date.add(new JLabel("   SUN  "));
 				date.add(new JLabel("   MON "));
 				date.add(new JLabel("    TUE  "));
@@ -68,9 +75,12 @@ class last extends JPanel{
 				date.add(new JLabel("    THU  "));
 				date.add(new JLabel("    FRI   "));
 				date.add(new JLabel("   SAT   "));
+				
+				//use methods to get first day and days of a month
 				int F = FirstDay();
 				int D = Days();
 				int day = 1;
+				//print out monthly calendar
 				for(int i = 0; i<42 ;i++){
 					if(i < F)
 						date.add(new JLabel("           "));
@@ -82,6 +92,8 @@ class last extends JPanel{
 					}
 				}
 				date.revalidate();
+				
+				//get the year and month and print them on the top
 				nowyear.setText(YEAR.getText() + "   ");
 				int themonth = Integer.parseInt(MONTH.getSelectedItem().toString());
 				nowmonth.setText("   " +month[themonth-1] + " ");
@@ -89,6 +101,7 @@ class last extends JPanel{
 		});
 	}
 	
+	//Determination of the day of the week(Formula)
 	int FirstDay(){
 		int theyear = Integer.parseInt(YEAR.getText()) ;
 		int themonth = Integer.parseInt(MONTH.getSelectedItem().toString());
@@ -112,6 +125,7 @@ class last extends JPanel{
 		return  first;
 	}
 	
+	//days of a month
 	int Days(){
 		int days = 0;
 		int m = Integer.parseInt(MONTH.getSelectedItem().toString());
@@ -132,6 +146,7 @@ class last extends JPanel{
 		return days;
 	}
 	
+	//days of Feb, it needs to check leap year
 	int feb(){
 		int y = Integer.parseInt(YEAR.getText());
 		int febDay = 28;
