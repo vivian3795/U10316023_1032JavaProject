@@ -19,8 +19,6 @@ class last extends JPanel{
 	//the components it needs
 	JPanel now = new JPanel();
 	JPanel setting = new JPanel();
-	JPanel weekday = new JPanel();
-	JPanel week = new JPanel();
 	JPanel date = new JPanel();
 	JLabel nowyear = new JLabel("set ");
 	JLabel nowmonth = new JLabel("time ");
